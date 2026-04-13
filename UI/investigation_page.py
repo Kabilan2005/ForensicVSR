@@ -36,6 +36,10 @@ def show():
                 
                 # 3. Safety Check: Display results only if they exist
                 if results and "error" not in results:
+<<<<<<< HEAD
+=======
+                    st.session_state.target_video = temp_path
+>>>>>>> 459ff72abc4ea04a550c723bb03ffd8771cb317d
                     st.metric("Forensic Quality Score (FQS)", f"{results['fqs']}/100")
                     
                     with st.expander("Detailed Metrics", expanded=True):

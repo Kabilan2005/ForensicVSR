@@ -34,10 +34,17 @@ def render_nav():
     st.markdown('<div class="nav-wrapper">', unsafe_allow_html=True)
     selected = option_menu(
         menu_title=None,
+<<<<<<< HEAD
         options=["Home", "Investigation", "Techniques", "Settings"],
         icons=["house", "camera-reels", "cpu", "gear"],
         menu_icon="cast",
         default_index=["Home", "Investigation", "Techniques", "Settings"].index(st.session_state.page),
+=======
+        options=["Home", "Investigation", "Techniques", "Export"],
+        icons=["house", "camera-reels", "cpu", "download"],
+        menu_icon="cast",
+        default_index=["Home", "Investigation", "Techniques", "Exoprt"].index(st.session_state.page),
+>>>>>>> 459ff72abc4ea04a550c723bb03ffd8771cb317d
         orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "transparent"},
@@ -62,5 +69,11 @@ if st.session_state.page == "Home":
 elif st.session_state.page == "Investigation":
     investigation_page.show()
 elif st.session_state.page == "Techniques":
+<<<<<<< HEAD
     st.title("🚀 Pipeline 2: Forensic VSR")
     st.info("Module under development...")
+=======
+    techniques_page.show()
+elif st.session_state.page == "Export":
+    export_page.show()
+>>>>>>> 459ff72abc4ea04a550c723bb03ffd8771cb317d
