@@ -1,12 +1,12 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from UI import home_page, investigation_page
+# Ensure all UI modules are imported
+from UI import home_page, investigation_page, techniques_page, export_page
 
+# 1. Page Configuration
 st.set_page_config(page_title="Forensic VSR System", layout="wide", initial_sidebar_state="collapsed")
 
 # 2. Advanced CSS Injection
-# We force the container to the very front (z-index: 1000) and add a backdrop-filter 
-# z-index used to control the order of stacking of the UI elements. along the z-axis perpendicular to the screen
 st.markdown("""
     <style>
         .nav-wrapper {
@@ -19,32 +19,34 @@ st.markdown("""
             border-top: 1px solid #333;
             padding: 5px 0;
         }
-        /* Create padding at the bottom of the page so content isn't hidden by the nav */
         .main .block-container {
             padding-bottom: 100px;
         }
     </style>
 """, unsafe_allow_html=True)
 
+# 3. Session State Initialization
 if 'page' not in st.session_state:
     st.session_state.page = "Home"
 
 # 4. Define the Navigation Function
 def render_nav():
+    # Define the order of pages clearly
+    nav_options = ["Home", "Investigation", "Techniques", "Export"]
+    nav_icons = ["house", "camera-reels", "cpu", "download"]
+    
+    try:
+        default_idx = nav_options.index(st.session_state.page)
+    except ValueError:
+        default_idx = 0
+
     st.markdown('<div class="nav-wrapper">', unsafe_allow_html=True)
     selected = option_menu(
         menu_title=None,
-<<<<<<< HEAD
-        options=["Home", "Investigation", "Techniques", "Settings"],
-        icons=["house", "camera-reels", "cpu", "gear"],
+        options=nav_options,
+        icons=nav_icons,
         menu_icon="cast",
-        default_index=["Home", "Investigation", "Techniques", "Settings"].index(st.session_state.page),
-=======
-        options=["Home", "Investigation", "Techniques", "Export"],
-        icons=["house", "camera-reels", "cpu", "download"],
-        menu_icon="cast",
-        default_index=["Home", "Investigation", "Techniques", "Exoprt"].index(st.session_state.page),
->>>>>>> 459ff72abc4ea04a550c723bb03ffd8771cb317d
+        default_index=default_idx,
         orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "transparent"},
@@ -57,23 +59,19 @@ def render_nav():
     return selected
 
 # 5. EXECUTION FLOW
-# We handle the navigation selection FIRST to prevent "flicker"
 selected_page = render_nav()
 
+# Only rerun if the page actually changed to avoid infinite loops
 if selected_page != st.session_state.page:
     st.session_state.page = selected_page
     st.rerun()
 
+# 6. Page Routing Logic
 if st.session_state.page == "Home":
     home_page.show()
 elif st.session_state.page == "Investigation":
     investigation_page.show()
 elif st.session_state.page == "Techniques":
-<<<<<<< HEAD
-    st.title("🚀 Pipeline 2: Forensic VSR")
-    st.info("Module under development...")
-=======
     techniques_page.show()
 elif st.session_state.page == "Export":
     export_page.show()
->>>>>>> 459ff72abc4ea04a550c723bb03ffd8771cb317d
