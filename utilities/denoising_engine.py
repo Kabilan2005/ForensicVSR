@@ -11,8 +11,8 @@ def apply_denoising(frame, method="deep_nlm", h=10):
     denoised = cv2.fastNlMeansDenoisingColored(
         frame, 
         None, 
-        h_luminance=h, 
-        h_color=h, 
+        h, 
+        h, 
         templateWindowSize=7, 
         searchWindowSize=21
     )
